@@ -1,6 +1,5 @@
 <template>
     <div id="accueil">
-        <Nav />
         <div>
             test
         </div>

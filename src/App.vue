@@ -1,21 +1,14 @@
 <template>
     <div id="app">
-        <!--<img alt="Vue logo" src="./assets/logo.png">-->
-        <Accueil />
-        <Liste />
+        <Navbar />
     </div>
 </template>
 
 <script>
-    import Liste from './components/Liste.vue'
-    //import Accueil from './components/Accueil.vue'
-
+    import Navbar from "./components/Nav";
     export default {
         name: 'app',
-        components: {
-            //Accueil,
-            Liste
-        }
+        components: {Navbar},
     }
 </script>
 

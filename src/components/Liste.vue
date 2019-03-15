@@ -1,7 +1,6 @@
 <template>
 
     <div id="liste">
-        <Nav/>
         <h1>Ma liste de course</h1>
 
         <input v-model="element" @keyup.enter="addOnList(element)" placeholder="produit...">
