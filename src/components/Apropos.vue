@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>liste-courses</h1>
+        <h1>À propos</h1>
 
         <h2>Project setup</h2>
         <p>npm install</p>

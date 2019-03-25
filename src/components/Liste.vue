@@ -1,7 +1,7 @@
 <template>
 
     <div id="liste">
-        <h1>Ma liste de course</h1>
+        <h1>Ma liste de course : {{name}}</h1>
 
         <input v-model="element" @keyup.enter="addOnList(element)" placeholder="produit...">
         <button @click="addOnList(element)">Ajouter à la liste</button>
@@ -38,13 +38,24 @@
         components: {
             Nav
         },
+        props: {
+            idList: {
+                type: String,
+                default: '0'
+            },
+        },
         data() {
             return {
+                maListe: null,
                 element: '',
+                name: "ma liste",
                 list: [],
                 budget: 0,
                 possibilities: ["tomate", "oignons", "pâtes", "aubergine", "boeuf", "pomme de terre", "lait", "beurre", "sauce", "ketchup", "piment", "pain", "pomme"]
             }
+        },
+        created: function () {
+            
         },
         computed: {
             getTotal: function () {
