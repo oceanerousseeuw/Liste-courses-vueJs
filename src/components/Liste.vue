@@ -22,7 +22,7 @@
         <div id="budget-total">
             <div id="recap">
                 <p><span>Budget : </span><input v-model="budget"/></p>
-                <p><span>Total : </span><span id="total"><!--{{getTotal}}--></span></p>
+                <p><span>Total : </span><span id="total">{{getTotal}}</span></p>
             </div>
             <p>{{getBudgetMessage}}</p>
         </div>
@@ -61,17 +61,17 @@
             }
         },
         computed: {
-            /*getTotal: function () {
+            getTotal: function () {
                 let total = 0;
                 if(this.myList.content) {
                     for (var i = 0; i < this.myList.content.length; i++) {
-                        if (this.myList[i].good) {
-                            total += Number(this.myList[i].price);
+                        if (this.myList.content[i].good) {
+                            total += Number(this.myList.content[i].price);
                         }
                     }
                 }
                 return total;
-            },*/
+            },
 
             getBudgetMessage: function () {
                 let total = this.getTotal;
@@ -100,7 +100,7 @@
                 this.addOnLocalStorage();
             },
             deleteFromList: function (id) {
-                this.myList.splice(id, 1);
+                this.myList.content.splice(id, 1);
                 this.addOnLocalStorage();
             },
             addOnLocalStorage() {
