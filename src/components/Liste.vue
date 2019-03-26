@@ -112,6 +112,7 @@
                 }
                 const parsed = JSON.stringify(lists);
                 localStorage.setItem('listOfList', parsed);
+                window.localStorage.setItem('lastListId', JSON.stringify(this.myList.idOfList));
             }
         }
 
