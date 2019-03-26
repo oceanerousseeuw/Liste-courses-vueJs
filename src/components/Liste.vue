@@ -1,7 +1,7 @@
 <template>
 
     <div id="liste">
-        <h1>Ma liste de course : {{name}}</h1>
+        <h1>Ma liste de course : {{myList.name}}</h1>
 
         <input v-model="element" @keyup.enter="addOnList(element)" placeholder="produit...">
         <button @click="addOnList(element)">Ajouter à la liste</button>
@@ -11,7 +11,7 @@
             </ul>
         </div>
         <ul>
-            <li v-for="(item, id) in list" :elem="item" :key="id">
+            <li v-for="(item, id) in myList.content" :elem="item" :key="id" >
                 <button id="good" @click="addOnBag(item)">Ok</button>
                 <p :class="{good : item.good}">{{item.text}}
                     <input v-if="item.good" v-model="item.price" class="price" placeholder="prix">
@@ -22,7 +22,7 @@
         <div id="budget-total">
             <div id="recap">
                 <p><span>Budget : </span><input v-model="budget"/></p>
-                <p><span>Total : </span><span id="total">{{getTotal}}</span></p>
+                <p><span>Total : </span><span id="total"><!--{{getTotal}}--></span></p>
             </div>
             <p>{{getBudgetMessage}}</p>
         </div>
@@ -46,27 +46,32 @@
         },
         data() {
             return {
-                maListe: null,
+                myList: "",
                 element: '',
-                name: "ma liste",
-                list: [],
                 budget: 0,
                 possibilities: ["tomate", "oignons", "pâtes", "aubergine", "boeuf", "pomme de terre", "lait", "beurre", "sauce", "ketchup", "piment", "pain", "pomme"]
             }
         },
         created: function () {
-            
+            var lists = JSON.parse(window.localStorage.getItem('listOfList')) || [];
+            for(var i= 0; i<lists.length; i++){
+                if (lists[i].idOfList == this.$route.params.idList){
+                    this.myList = lists[i];
+                }
+            }
         },
         computed: {
-            getTotal: function () {
+            /*getTotal: function () {
                 let total = 0;
-                for (var i = 0; i < this.list.length; i++) {
-                    if (this.list[i].good) {
-                        total += Number(this.list[i].price);
+                if(this.myList.content) {
+                    for (var i = 0; i < this.myList.content.length; i++) {
+                        if (this.myList[i].good) {
+                            total += Number(this.myList[i].price);
+                        }
                     }
                 }
                 return total;
-            },
+            },*/
 
             getBudgetMessage: function () {
                 let total = this.getTotal;
@@ -80,36 +85,33 @@
                 return this.possibilities.filter(possibility => possibility.includes(this.element));
             }
         },
-        mounted: function () {
-            if (localStorage.getItem('list')) {
-                try {
-                    this.list = JSON.parse(localStorage.getItem('list'));
-                } catch (e) {
-                    localStorage.removeItem('list');
-                }
-            }
-        },
         methods: {
             addOnList: function (item) {
-                this.list.push({text: item, price: "", good: false});
+                this.myList.content.push({text: item, price: "", good: false});
                 this.addOnLocalStorage();
                 this.element = "";
             },
             addOnBag: function (item) {
-                for (let i = 0; i < this.list.length; i++) {
-                    if (this.list[i].text === item.text) {
-                        this.list[i].good = true;
+                for (let i = 0; i < this.myList.content.length; i++) {
+                    if (this.myList.content[i].text === item.text) {
+                        this.myList.content[i].good = true;
                     }
                 }
                 this.addOnLocalStorage();
             },
             deleteFromList: function (id) {
-                this.list.splice(id, 1);
+                this.myList.splice(id, 1);
                 this.addOnLocalStorage();
             },
             addOnLocalStorage() {
-                const parsed = JSON.stringify(this.list);
-                localStorage.setItem('list', parsed);
+                var lists = JSON.parse((window.localStorage.getItem('listOfList'))) || [];
+                for (var i=0; i<lists.length; i++){
+                    if(lists[i].idOfList == this.myList.idOfList){
+                        lists[i] = this.myList;
+                    }
+                }
+                const parsed = JSON.stringify(lists);
+                localStorage.setItem('listOfList', parsed);
             }
         }
 

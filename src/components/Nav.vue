@@ -2,7 +2,7 @@
     <div>
         <div id="navbar">
             <router-link to="/">Accueil</router-link>
-            <router-link to="/mes-listes">mes listes</router-link>
+            <router-link to="/mes-listes">Mes listes</router-link>
             <router-link to="/a-propos">À propos</router-link>
         </div>
         <router-view ></router-view>
