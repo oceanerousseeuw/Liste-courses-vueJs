@@ -1,4 +1,6 @@
 # liste-courses
+This project is develop in VueJS. On it, you can create shop lists, delete it and add/delete products on all lists.You can also count the total price and show if it corresponds of your budget.
+
 
 ## Project setup
 ```
@@ -13,16 +15,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
