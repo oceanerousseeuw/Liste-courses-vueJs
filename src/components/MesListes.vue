@@ -6,6 +6,7 @@
         <ul>
             <li v-for="(item,id) in listOfList" :elem="item" :key="id">
                 <router-link :to="{ name: 'mes-listes', params: { idList: item.idOfList } }">{{item.name}}</router-link>
+                <button id="delete" @click="deleteFromList(id)">X</button>
             </li>
         </ul>
         <input v-model="newList" @keyup.enter="createList(newList)" placeholder="nouvelle liste...">
@@ -62,6 +63,10 @@
                 this.listOfList.push({name : newList, idOfList: this.idCreator, content : []});
                 this.addOnLocalStorage();
                 this.newList = "";
+            },
+            deleteFromList: function (id) {
+                this.listOfList.splice(id, 1);
+                this.addOnLocalStorage();
             },
             addOnLocalStorage() {
                 const parsed = JSON.stringify(this.listOfList);

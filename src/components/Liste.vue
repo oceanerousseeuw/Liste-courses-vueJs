@@ -59,6 +59,10 @@
                     this.myList = lists[i];
                 }
             }
+            var stockedBudget = JSON.parse(window.localStorage.getItem('budget')) || 0;
+            if (stockedBudget){
+                this.budget = stockedBudget;
+            }
         },
         computed: {
             getTotal: function () {
@@ -74,6 +78,7 @@
             },
 
             getBudgetMessage: function () {
+                localStorage.setItem('budget', this.budget);
                 let total = this.getTotal;
                 if (this.budget < total) {
                     return "Tu dépasses le budget";
